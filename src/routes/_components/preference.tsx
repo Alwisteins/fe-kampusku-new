@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
-import { Button } from "../button";
-import { IconSearch } from "../icons/search";
+import { Button } from "../../components/button";
+import { IconSearch } from "../../components/icons/search";
 
 const cardData = [
   {
@@ -29,20 +29,24 @@ export const PreferenceSection = component$(() => {
           Beritahu kami, apa preferensi kampus impian yang kamu lebih sukai
         </p>
       </div>
-      <div class="flex h-1/2 items-center justify-center space-x-4">
+      <div class="flex h-1/2 items-center justify-center gap-8">
         {cardData.map((card) => (
           <div
             key={card.title}
-            class="h-fit w-72 space-y-2 rounded-xl bg-sec-100 p-4"
+            class="group h-fit w-72 space-y-2 rounded-xl bg-sec-100 p-4 transition-colors duration-200 hover:bg-prim-300 hover:drop-shadow-xl"
           >
-            <h2 class="text-2xl font-bold text-prim-300">{card.title}</h2>
-            <p class="text-sm text-[#6B7280]">{card.description}</p>
+            <h2 class="text-2xl font-bold text-prim-300 group-hover:text-white">
+              {card.title}
+            </h2>
+            <p class="text-sm text-[#6B7280] group-hover:text-sec-100">
+              {card.description}
+            </p>
             <div class="flex justify-end">
               <Button
                 title="Cari"
                 icon={<IconSearch />}
                 iconAlign="right"
-                class="bg-transparent text-prim-300"
+                class="bg-transparent text-prim-300 group-hover:text-sec-100"
               />
             </div>
           </div>

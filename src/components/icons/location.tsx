@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { mergeClasses } from "~/utils/merge-classes";
 
-export const IconSearch = component$(
+export const IconLocation = component$(
   ({ className }: { className?: string }) => {
     const defaultClass = "transition-colors duration-200";
     const mergedClass = mergeClasses(defaultClass, className);
@@ -16,10 +16,14 @@ export const IconSearch = component$(
         class={mergedClass}
       >
         <path
-          d="M14.1057 14.2L17 17M9.5 6C11.1569 6 12.5 7.34315 12.5 9M16.0667 9.53333C16.0667 13.1416 13.1416 16.0667 9.53333 16.0667C5.92507 16.0667 3 13.1416 3 9.53333C3 5.92507 5.92507 3 9.53333 3C13.1416 3 16.0667 5.92507 16.0667 9.53333Z"
+          d="M10 18C10 18 16.2609 12.4348 16.2609 8.26087C16.2609 4.80309 13.4578 2 10 2C6.54222 2 3.73914 4.80309 3.73914 8.26087C3.73914 12.4348 10 18 10 18Z"
           stroke="currentColor"
           stroke-width="2"
-          stroke-linecap="round"
+        />
+        <path
+          d="M12.0003 8.00013C12.0003 9.1047 11.1048 10.0001 10.0003 10.0001C8.89569 10.0001 8.00026 9.1047 8.00026 8.00013C8.00026 6.89556 8.89569 6.00013 10.0003 6.00013C11.1048 6.00013 12.0003 6.89556 12.0003 8.00013Z"
+          stroke="currentColor"
+          stroke-width="2"
         />
       </svg>
     );

@@ -6,11 +6,16 @@ export const mergeClasses = (
   defaultClass: string,
   userClass?: string,
 ): string => {
-  const defaultClasses = new Set(defaultClass.split(" "));
-  const userClasses = new Set(userClass?.split(" ") || []);
+  const defaultClasses = defaultClass.split(" ");
+  const userClasses = userClass?.split(" ") || [];
 
-  // Remove duplicates from default classes if they exist in user classes
-  userClasses.forEach((cls) => defaultClasses.delete(cls));
+  // remove default classes that are already in user classes
+  const filteredDefaultClasses = defaultClasses.filter(
+    (cls: string) =>
+      !userClasses.some((userCls: string) =>
+        userCls.startsWith(cls.split("-")[0]),
+      ),
+  );
 
-  return [...defaultClasses, ...userClasses].join(" ");
+  return [...filteredDefaultClasses, ...userClasses].join(" ");
 };

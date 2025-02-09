@@ -1,6 +1,7 @@
 import { component$, Slot } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { Navbar } from "~/components/navbar";
+import { Footer } from "~/components/footer";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -17,9 +18,10 @@ export default component$(() => {
   return (
     <>
       <Navbar />
-      <div class="px-16">
+      <div class="overflow-hidden px-16">
         <Slot />
       </div>
+      <Footer />
     </>
   );
 });

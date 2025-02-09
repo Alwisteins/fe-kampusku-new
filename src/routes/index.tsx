@@ -1,13 +1,19 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { HeroSection } from "~/components/home/hero";
-import { PreferenceSection } from "~/components/home/preference";
+import { HeroSection } from "~/routes/_components/hero";
+import { PreferenceSection } from "~/routes/_components/preference";
+import { CategoriesSection } from "~/routes/_components/categories";
+import { ContributorSection } from "~/routes/_components/contributor";
+import { ContributesSection } from "~/routes/_components/contributes";
 
 export default component$(() => {
   return (
     <div class="space-y-24">
       <HeroSection />
       <PreferenceSection />
+      <CategoriesSection />
+      <ContributorSection />
+      <ContributesSection />
     </div>
   );
 });
