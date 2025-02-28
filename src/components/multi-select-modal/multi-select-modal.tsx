@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export const MultiSelectModal = component$(({ label }: IProps) => {
-  const value = useSignal("");
+  const value = useSignal<string[]>([]);
   const selectedTransportation = useSignal<string[]>([]);
 
   const transportations = ["Angkot", "Bus", "Ojek", "KRL", "Sepeda Listrik"];
@@ -25,6 +25,38 @@ export const MultiSelectModal = component$(({ label }: IProps) => {
     }
   });
 
+  const handleUnselect = $((transport: string) => {
+    selectedTransportation.value = selectedTransportation.value.filter(
+      (item) => item !== transport,
+    );
+    value.value = value.value.filter((item) => item !== transport);
+  });
+
+  const handleSave = $(() => {
+    value.value = selectedTransportation.value;
+  });
+
+  const displaySelectedTransportation = $((transportations: string[]) => {
+    return (
+      <div class="flex flex-wrap gap-2">
+        {transportations.map((transport) => (
+          <span class="inline-flex max-w-full items-center break-words rounded-md bg-blue-100 p-1 text-blue-500">
+            {transport}{" "}
+            <span
+              class="ml-1 cursor-pointer text-red-500"
+              onClick$={(event) => {
+                event.stopPropagation();
+                handleUnselect(transport);
+              }}
+            >
+              X
+            </span>
+          </span>
+        ))}
+      </div>
+    );
+  });
+
   return (
     <div class="hover:cursor-pointer">
       <p class="mb-2 max-w-full overflow-x-hidden text-ellipsis font-medium">
@@ -33,7 +65,9 @@ export const MultiSelectModal = component$(({ label }: IProps) => {
       <Modal.Root>
         <Modal.Trigger class="modal-trigger w-full">
           <div class="flex items-start rounded-lg bg-gray-100 px-4 py-2 placeholder:text-gray-600">
-            {value.value !== "" ? value.value : "Pilih transportasi ..."}
+            {value.value.length
+              ? displaySelectedTransportation(value.value)
+              : "Pilih transportasi ..."}
           </div>
         </Modal.Trigger>
         <Modal.Panel class="modal-panel rounded-md p-5">
@@ -47,15 +81,14 @@ export const MultiSelectModal = component$(({ label }: IProps) => {
               return (
                 <div
                   key={transport}
-                  class="flex items-center space-x-2 rounded-md border border-black p-2"
+                  class={`${isSelected ? "border-none bg-blue-500" : ""}  flex cursor-pointer items-center justify-center space-x-2 rounded-xl border border-black p-2`}
                   onClick$={() => toggleSelection(transport)}
                 >
-                  <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onClick$={() => toggleSelection(transport)}
-                  />
-                  <label>{transport}</label>
+                  <label
+                    class={`${isSelected ? "text-white" : ""} cursor-pointer`}
+                  >
+                    {transport}
+                  </label>
                 </div>
               );
             })}
@@ -63,7 +96,7 @@ export const MultiSelectModal = component$(({ label }: IProps) => {
           <footer class="mt-12 flex justify-end space-x-4">
             <Modal.Close class="modal-close">Cancel</Modal.Close>
             <Modal.Close class="modal-close">
-              <Button title="Simpan" />
+              <Button title="Simpan" onClick$={handleSave} />
             </Modal.Close>
           </footer>
         </Modal.Panel>
